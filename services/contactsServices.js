@@ -3,7 +3,8 @@ const path = require('path');
 const {nanoid} = require('nanoid');
 
 
-const contactsPath = path.join(__dirname, 'db', 'contacts.json');
+const contactsPath = path.join(__dirname, '../', 'db', 'contacts.json');
+console.log(contactsPath)
 
 // Возвращает массив контактов.
 const listContacts = async() => {

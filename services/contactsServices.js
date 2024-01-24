@@ -55,7 +55,7 @@ const listContacts = async() => {
     if (index === -1){
         return null;
     }
-    allContacts[index] = {id, ...data}
+    allContacts[index] = {...allContacts[index], ...data}
     fs.writeFile(contactsPath, JSON.stringify(allContacts, null, 2));
     return allContacts[index];
   }

@@ -49,7 +49,7 @@ const HttpError = require('../helpers/HttpError.js');
 const updateContact = async (req, res) => {
 
     const{id} =req.params;
- 
+
       const changeContact = await Contact.findByIdAndUpdate(id, req.body, {new: true});
     // const changeContact = await contactsService.updateContact(id, req.body);
     if (!changeContact){

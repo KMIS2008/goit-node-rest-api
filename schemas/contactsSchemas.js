@@ -4,7 +4,7 @@ const Joi = require('joi');
     name: Joi.string().required(), 
     email: Joi.string().required(), 
     phone: Joi.string().required(),
-    favorite: Joi.boolean().optional(),
+    
 })
 
  const updateContactSchema = Joi.object({

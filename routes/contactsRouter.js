@@ -3,7 +3,7 @@ const ctrl = require ("../controllers/contactsControllers.js");
 const validateBody = require ('../helpers/validateBody.js');
 const schema = require ('../schemas/contactsSchemas.js');
 const isValidId = require ('../middlewares/isValidId.js');
-// const Schema = require('../model/contact.js');
+
 
 const contactsRouter = express.Router();
 

@@ -63,10 +63,10 @@ const updateFavorite = async (req, res) => {
     const{id} =req.params;
   
       const updateStatusContact = await Contact.findByIdAndUpdate(id, req.body, {new: true});
-    if (!changeContact){
+    if (!updateStatusContact){
           throw HttpError(404)
     }
-    res.status(200).json(changeContact);
+    res.status(200).json(updateStatusContact);
 };
 
 module.exports = {

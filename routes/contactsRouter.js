@@ -7,7 +7,7 @@ const authdentificate = require('../middlewares/authdentificate.js');
 
 const contactsRouter = express.Router();
 
-contactsRouter.get("/",authdentificate, ctrl.getAllContacts);
+contactsRouter.get("/", authdentificate, ctrl.getAllContacts);
 
 contactsRouter.get("/:id", authdentificate, isValidId, ctrl.getContactById);
 

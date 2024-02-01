@@ -20,12 +20,12 @@ const register = async (req, res)=>{
     const newUser = await User.create({...req.body, password: hashPasword});
     res.status(201).json(
        { email: newUser.email,
-        password: newUser.password
+         subscription: newUser.subscription
     });
 }
 
 const login = async (req, res)=>{
-    const { email, password} = req.body;
+    const { email, password, subscription} = req.body;
     const user = await User.findOne({email});
     if(!user){
         throw HttpError(401, "Email or password is wrong")
@@ -42,12 +42,17 @@ const login = async (req, res)=>{
     const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '23h' });
     await User.findByIdAndUpdate(user._id, {token});
 
-    res.status(200).json({token})
+    res.status(200).json({
+        token,
+        user: {
+            email: user.email,
+            subscription: user.subscription
+          }})
 }
 
    const getCurrent = (req, res)=>{
-    const {email} = req.user;
-    res.status(200).json({email})
+    const {email, subscription} = req.user;
+    res.status(200).json({email, subscription})
    }
 
    const logout = async (req, res)=>{

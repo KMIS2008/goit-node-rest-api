@@ -20,9 +20,11 @@ const HttpError = require('../helpers/HttpError.js');
 };
 
  const getContactById = async (req, res) => {
-
+    const {_id} = req.user;
     const {id} = req.params;
-    const contactsById =  await Contact.findById(id)
+    const contactsById =  await Contact.findById({
+        _id: id,
+        owner: _id})
 
     if (!contactsById){
           throw HttpError(404)
@@ -31,9 +33,11 @@ const HttpError = require('../helpers/HttpError.js');
 };
 
  const deleteContact = async (req, res) => {
-    
+    const {_id} = req.user;
     const {id} = req.params;
-    const delContact = await Contact.findByIdAndDelete(id);
+    const delContact = await Contact.findByIdAndDelete({
+        _id: id,
+        owner: _id});
    
     if (!delContact){
         throw HttpError(404)
@@ -50,10 +54,16 @@ const HttpError = require('../helpers/HttpError.js');
 };
 
 const updateContact = async (req, res) => {
-
+    const {_id} = req.user;
     const{id} =req.params;
 
-      const changeContact = await Contact.findByIdAndUpdate(id, req.body, {new: true});
+      const changeContact = await Contact.findByIdAndUpdate(
+        {
+        _id: id,
+        owner: _id
+       },
+        req.body,
+        {new: true});
   
     if (!changeContact){
           throw HttpError(404)
@@ -63,9 +73,16 @@ const updateContact = async (req, res) => {
 
 const updateFavorite = async (req, res) => {
 
+    const {_id} = req.user;
     const{id} =req.params;
   
-      const updateStatusContact = await Contact.findByIdAndUpdate(id, req.body, {new: true});
+      const updateStatusContact = await Contact.findByIdAndUpdate(
+        {
+        _id: id,
+        owner: _id
+       },
+        req.body,
+        {new: true});
     if (!updateStatusContact){
           throw HttpError(404)
     }

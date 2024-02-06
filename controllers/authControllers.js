@@ -4,6 +4,8 @@ const jwt =require('jsonwebtoken');
 const ctrlWrapper = require('../helpers/ctrlWrapper.js');
 const dotenv = require('dotenv');
 dotenv.config();
+const Jimp = require('jimp');
+
 const  {SECRET_KEY} = process.env;
 const gravatar = require('gravatar');
 const path = require('path');
@@ -78,7 +80,12 @@ const login = async (req, res)=>{
     const {_id} = req.user;
 
     const { path: tempUpload, originalname } = req.file;
-    const filename = `${_id}_${originalname}`
+    const filename = `${_id}_${originalname}`;
+    const img = await Jimp.read(tempUpload);
+    await img
+      .resize(250, 250)
+      .writeAsync(tempUpload);
+      
     const resultUpload = path.join(avatarsDir, filename);
 
     await fs.rename(tempUpload, resultUpload);

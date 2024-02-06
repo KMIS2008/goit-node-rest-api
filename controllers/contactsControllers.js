@@ -22,7 +22,7 @@ const HttpError = require('../helpers/HttpError.js');
  const getContactById = async (req, res) => {
     const {_id} = req.user;
     const {id} = req.params;
-    const contactsById =  await Contact.findById({
+    const contactsById =  await Contact.findOne({
         _id: id,
         owner: _id})
 
@@ -35,7 +35,7 @@ const HttpError = require('../helpers/HttpError.js');
  const deleteContact = async (req, res) => {
     const {_id} = req.user;
     const {id} = req.params;
-    const delContact = await Contact.findByIdAndDelete({
+    const delContact = await Contact.findOneAndDelete({
         _id: id,
         owner: _id});
    
@@ -57,7 +57,7 @@ const updateContact = async (req, res) => {
     const {_id} = req.user;
     const{id} =req.params;
 
-      const changeContact = await Contact.findByIdAndUpdate(
+      const changeContact = await Contact.findOneAndUpdate(
         {
         _id: id,
         owner: _id
@@ -76,7 +76,7 @@ const updateFavorite = async (req, res) => {
     const {_id} = req.user;
     const{id} =req.params;
   
-      const updateStatusContact = await Contact.findByIdAndUpdate(
+      const updateStatusContact = await Contact.findOneAndUpdate(
         {
         _id: id,
         owner: _id

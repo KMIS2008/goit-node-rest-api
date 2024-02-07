@@ -78,9 +78,8 @@ const login = async (req, res)=>{
 
    const upDateAvatar = async(req, res)=>{
     const {_id} = req.user;
-    const {avatar}=req.body;
-    if(!avatar){
-        throw HttpError(400, "Attach a file for your avatar")
+    if(!req.file){
+       res.status(400).json({messege: "No file uploaded"})
     }
 
     const { path: tempUpload, originalname } = req.file;

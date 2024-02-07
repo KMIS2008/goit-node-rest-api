@@ -144,6 +144,10 @@ const login = async (req, res)=>{
 
    const upDateAvatar = async(req, res)=>{
     const {_id} = req.user;
+    const {avatar}=req.body;
+    if(!avatar){
+        throw HttpError(400, "Attach a file for your avatar")
+    }
 
     const { path: tempUpload, originalname } = req.file;
     const filename = `${_id}_${originalname}`;

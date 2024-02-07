@@ -1,6 +1,6 @@
 const express = require ("express");
 const validateBody = require ('../helpers/validateBody.js');
-const registrSchema = require('../schemas/authSchema.js');
+const {registrSchema, emailSchema} = require('../schemas/authSchema.js');
 const ctr = require('../controllers/authControllers.js');
 const authRouter = express.Router();
 const authdentificate = require('../middlewares/authdentificate.js');
@@ -8,6 +8,10 @@ const upload = require ('../middlewares/upload.js')
 
 
 authRouter.post("/register", validateBody(registrSchema), ctr.register);
+
+authRouter.get('/verify/:verificationToken', ctr.verifyEmail);
+
+authRouter.post("/verify", validateBody(emailSchema), ctr.resentVerifyEmail);
 
 authRouter.post("/login", validateBody(registrSchema), ctr.login);
 

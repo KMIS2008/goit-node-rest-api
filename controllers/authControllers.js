@@ -8,7 +8,8 @@ dotenv.config();
 const Jimp = require('jimp');
 const {nanoid} = require('nanoid');
 
-const  {SECRET_KEY, BASE_URL} = process.env;
+const  {SECRET_KEY} = process.env;
+const {BASE_URL} = process.env;
 const gravatar = require('gravatar');
 const path = require('path');
 const fs=require('fs/promises');
@@ -18,6 +19,7 @@ const fs=require('fs/promises');
 const avatarsDir = path.join(__dirname, "../", "public", 'avatars');
 
 const HttpError = require('../helpers/HttpError.js');
+
 
 const register = async (req, res)=>{
     const {email, password} = req.body;
@@ -37,11 +39,11 @@ const register = async (req, res)=>{
         verificationToken
     });
      
-    const verifyEmail={
+    const verifyEmail = {
         to: email,
-        subject:' Verification email sent',
+        subject: 'Verify your email',
         html: `<a target="_blank" href="${BASE_URL}/users/verify/${verificationToken}">Click verify email</a>`,
-    }
+      };
 
     await sendEmail(verifyEmail);
 
@@ -66,6 +68,7 @@ const verifyEmail =async(req, res)=>{
     res.status(200).json({message: 'Verification successful'})
     
 }
+
 
 const resentVerifyEmail = async(req,res)=>{
     const {email}= req.body;
@@ -170,7 +173,7 @@ const login = async (req, res)=>{
 
 module.exports = {
     register: ctrlWrapper(register),
-    verifyEmail:ctrlWrapper(verifyEmail), 
+    verifyEmail: ctrlWrapper(verifyEmail),
     resentVerifyEmail:ctrlWrapper(resentVerifyEmail),
     login:ctrlWrapper(login),
     getCurrent:ctrlWrapper(getCurrent),
